@@ -11,8 +11,9 @@ node {
       sh '''
         mkdir -p $GOPATH/src/github.com/zenoss/
         ln -s $PWD $GOPATH/src/github.com/zenoss/metricshipper
-        make -C $GOPATH/src/github.com/zenoss/metricshipper MIN_GO_VERSION=go1.6 clean
-        make -C $GOPATH/src/github.com/zenoss/metricshipper MIN_GO_VERSION=go1.6 tgz
+        cd $GOPATH/src/github.com/zenoss/metricshipper
+        make MIN_GO_VERSION=go1.6 clean
+        make MIN_GO_VERSION=go1.6 tgz
       '''
     }
   }
