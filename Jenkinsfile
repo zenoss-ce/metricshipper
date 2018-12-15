@@ -8,12 +8,12 @@ node {
 
   stage('Build') {
     docker.image('zenoss/build-tools:0.0.10').inside('-u 0') { 
-      sh 'go get github.com/control-center/serviced/logging'
-      sh 'go get github.com/zenoss/glog'
-      sh 'mkdir -p  $GOPATH/src/github.com/zenoss/'
-      sh 'ln -s $PWD $GOPATH/src/github.com/zenoss/metricshipper'
-      sh 'make -C $GOPATH/src/github.com/zenoss/metricshipper MIN_GO_VERSION=go1.6 build' 
-      sh 'make -C $GOPATH/src/github.com/zenoss/metricshipper MIN_GO_VERSION=go1.6 tgz' 
+      sh '''
+        mkdir -p $GOPATH/src/github.com/zenoss/
+        ln -s $PWD $GOPATH/src/github.com/zenoss/metricshipper
+        make -C $GOPATH/src/github.com/zenoss/metricshipper MIN_GO_VERSION=go1.6 clean
+        make -C $GOPATH/src/github.com/zenoss/metricshipper MIN_GO_VERSION=go1.6 tgz' 
+      '''
     }
   }
 
